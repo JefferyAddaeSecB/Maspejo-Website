@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Target, Eye, Heart } from 'lucide-react';
 import CTASection from '../components/CTASection';
 import StatCounter from '../components/StatCounter';
+import Reveal from '../components/Reveal';
 import { team } from '../data/team';
 import styles from './About.module.css';
 
@@ -90,6 +91,7 @@ export default function About() {
       <section className="section bg-surface">
         <div className="container">
           <div className={styles.storyGrid}>
+            <Reveal animation="fade-right" duration={800}>
             <div className={styles.storyContent}>
               <span className="section-label">Our Foundation</span>
               <h2 className="section-title">A Company Built on<br />More Than Concrete</h2>
@@ -116,6 +118,8 @@ export default function About() {
                 international technical standards to every site.
               </p>
             </div>
+            </Reveal>
+            <Reveal animation="fade-left" duration={800} delay={150}>
             <div className={styles.storyImages}>
               <img
                 src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=700&q=80"
@@ -135,6 +139,7 @@ export default function About() {
                 />
               </div>
             </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -149,57 +154,55 @@ export default function About() {
       {/* ── MISSION / VISION / VALUES ── */}
       <section className="section bg-surface">
         <div className="container">
-          <div className="section-header section-header--center">
-            <span className="section-label">What Drives Us</span>
-            <h2 className="section-title">Mission, Vision & Values</h2>
-          </div>
+          <Reveal animation="fade-up">
+            <div className="section-header section-header--center">
+              <span className="section-label">What Drives Us</span>
+              <h2 className="section-title">Mission, Vision & Values</h2>
+            </div>
+          </Reveal>
 
           <div className={styles.mvGrid}>
-            <div className={styles.mvCard}>
-              <div className={styles.mvIconWrap}>
-                <Target size={24} />
-              </div>
+            <Reveal animation="zoom-up" delay={0}><div className={styles.mvCard}>
+              <div className={styles.mvIconWrap}><Target size={24} /></div>
               <h3 className={styles.mvTitle}>Our Mission</h3>
               <p className={styles.mvText}>
                 To deliver construction and infrastructure solutions of enduring quality that
                 transform communities, exceed client expectations, and set the standard for
                 professional excellence in Ghana and West Africa.
               </p>
-            </div>
-            <div className={styles.mvCard}>
-              <div className={styles.mvIconWrap}>
-                <Eye size={24} />
-              </div>
+            </div></Reveal>
+            <Reveal animation="zoom-up" delay={100}><div className={styles.mvCard}>
+              <div className={styles.mvIconWrap}><Eye size={24} /></div>
               <h3 className={styles.mvTitle}>Our Vision</h3>
               <p className={styles.mvText}>
                 To be the most trusted and technically accomplished construction company in
                 West Africa — recognised for integrity, innovation, and the lasting impact our
                 work has on the built environment and the lives it supports.
               </p>
-            </div>
-            <div className={styles.mvCard}>
-              <div className={styles.mvIconWrap}>
-                <Heart size={24} />
-              </div>
+            </div></Reveal>
+            <Reveal animation="zoom-up" delay={200}><div className={styles.mvCard}>
+              <div className={styles.mvIconWrap}><Heart size={24} /></div>
               <h3 className={styles.mvTitle}>Our Promise</h3>
               <p className={styles.mvText}>
                 Every Maspejo project receives the same commitment: transparent communication,
                 rigorous quality control, zero safety compromise, and a finished structure that
                 will still be standing — and standing proudly — in 50 years.
               </p>
-            </div>
+            </div></Reveal>
           </div>
 
           {/* Core Values */}
           <div className={styles.valuesSection}>
-            <h3 className={styles.valuesTitle}>Our Core Values</h3>
+            <Reveal animation="fade-up"><h3 className={styles.valuesTitle}>Our Core Values</h3></Reveal>
             <div className={styles.valuesGrid}>
               {values.map((v, i) => (
-                <div key={v.title} className={`${styles.valueCard} anim-up d${i + 1}`}>
-                  <div className={styles.valueIcon}>{v.icon}</div>
-                  <h4 className={styles.valueName}>{v.title}</h4>
-                  <p className={styles.valueDesc}>{v.desc}</p>
-                </div>
+                <Reveal key={v.title} animation="fade-up" delay={i * 70} duration={600}>
+                  <div className={styles.valueCard}>
+                    <div className={styles.valueIcon}>{v.icon}</div>
+                    <h4 className={styles.valueName}>{v.title}</h4>
+                    <p className={styles.valueDesc}>{v.desc}</p>
+                  </div>
+                </Reveal>
               ))}
             </div>
           </div>
@@ -209,20 +212,24 @@ export default function About() {
       {/* ── MILESTONES / TIMELINE ── */}
       <section className={`section ${styles.timelineSection}`}>
         <div className="container">
-          <div className="section-header section-header--center">
-            <span className="section-label" style={{color:'var(--color-accent-bright)'}}>History</span>
-            <h2 className="section-title" style={{color:'var(--color-white)'}}>Our Journey</h2>
-          </div>
+          <Reveal animation="fade-up">
+            <div className="section-header section-header--center">
+              <span className="section-label" style={{color:'var(--color-accent-bright)'}}>History</span>
+              <h2 className="section-title" style={{color:'var(--color-white)'}}>Our Journey</h2>
+            </div>
+          </Reveal>
 
           <div className={styles.timeline}>
             {milestones.map((m, i) => (
-              <div key={m.year} className={`${styles.milestone} ${i % 2 === 0 ? styles.milestoneLeft : styles.milestoneRight}`}>
-                <div className={styles.milestoneYear}>{m.year}</div>
-                <div className={styles.milestoneDot} />
-                <div className={styles.milestoneCard}>
-                  <p>{m.event}</p>
+              <Reveal key={m.year} animation={i % 2 === 0 ? 'fade-right' : 'fade-left'} delay={i * 60} duration={600}>
+                <div className={`${styles.milestone} ${i % 2 === 0 ? styles.milestoneLeft : styles.milestoneRight}`}>
+                  <div className={styles.milestoneYear}>{m.year}</div>
+                  <div className={styles.milestoneDot} />
+                  <div className={styles.milestoneCard}>
+                    <p>{m.event}</p>
+                  </div>
                 </div>
-              </div>
+              </Reveal>
             ))}
             <div className={styles.timelineLine} />
           </div>
@@ -232,17 +239,20 @@ export default function About() {
       {/* ── TEAM ── */}
       <section className="section bg-surface">
         <div className="container">
-          <div className="section-header section-header--center">
-            <span className="section-label">Leadership</span>
-            <h2 className="section-title">Meet the Team</h2>
-            <p className="section-desc" style={{margin:'0 auto'}}>
-              The experienced professionals driving Maspejo's vision forward every day.
-            </p>
-          </div>
+          <Reveal animation="fade-up">
+            <div className="section-header section-header--center">
+              <span className="section-label">Leadership</span>
+              <h2 className="section-title">Meet the Team</h2>
+              <p className="section-desc" style={{margin:'0 auto'}}>
+                The experienced professionals driving Maspejo's vision forward every day.
+              </p>
+            </div>
+          </Reveal>
 
           <div className={styles.teamGrid}>
             {team.map((member, i) => (
-              <div key={member.name} className={`${styles.teamCard} anim-up d${(i % 3) + 1}`}>
+              <Reveal key={member.name} animation="zoom-up" delay={(i % 3) * 100} duration={700}>
+              <div className={styles.teamCard}>
                 <div className={styles.teamImg}>
                   <img src={member.image} alt={member.name} loading="lazy" />
                 </div>
@@ -257,6 +267,7 @@ export default function About() {
                   </div>
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
         </div>

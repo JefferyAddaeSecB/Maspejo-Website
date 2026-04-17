@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Calendar, DollarSign, Clock } from 'lucide-react';
 import CTASection from '../components/CTASection';
+import Reveal from '../components/Reveal';
 import { projects, categories } from '../data/projects';
 import type { ProjectCategory } from '../data/projects';
 import styles from './Projects.module.css';
@@ -64,7 +65,8 @@ export default function Projects() {
           {/* Project grid */}
           <div className={styles.grid}>
             {filtered.map((proj, i) => (
-              <div key={proj.id} className={`${styles.card} anim-up d${(i % 3) + 1}`}>
+              <Reveal key={proj.id} animation="zoom-up" delay={(i % 3) * 100} duration={650}>
+              <div className={styles.card}>
                 <div className={styles.cardImg}>
                   <img src={proj.image} alt={proj.title} loading="lazy" />
                   <div className={styles.cardImgOverlay} />
@@ -111,6 +113,7 @@ export default function Projects() {
                   </div>
                 </div>
               </div>
+              </Reveal>
             ))}
           </div>
 
@@ -125,21 +128,25 @@ export default function Projects() {
       {/* ── STATS ── */}
       <section className={`section ${styles.statsSection}`}>
         <div className="container">
-          <div className="section-header section-header--center">
-            <span className="section-label" style={{color:'var(--color-accent-bright)'}}>By the Numbers</span>
-            <h2 className="section-title" style={{color:'var(--color-white)'}}>Project Scale & Reach</h2>
-          </div>
+          <Reveal animation="fade-up">
+            <div className="section-header section-header--center">
+              <span className="section-label" style={{color:'var(--color-accent-bright)'}}>By the Numbers</span>
+              <h2 className="section-title" style={{color:'var(--color-white)'}}>Project Scale & Reach</h2>
+            </div>
+          </Reveal>
           <div className={styles.statsGrid}>
             {[
               { val: 'GHS 2.1B+', label: 'Total Project Value Delivered' },
               { val: '8',          label: 'Regions Across Ghana' },
               { val: '4',          label: 'West African Countries' },
               { val: '200+',       label: 'Completed Projects' },
-            ].map(s => (
-              <div key={s.label} className={styles.statCard}>
+            ].map((s, i) => (
+              <Reveal key={s.label} animation="zoom-up" delay={i * 100}>
+              <div className={styles.statCard}>
                 <div className={styles.statVal}>{s.val}</div>
                 <div className={styles.statLabel}>{s.label}</div>
               </div>
+              </Reveal>
             ))}
           </div>
         </div>

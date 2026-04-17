@@ -2,6 +2,7 @@ import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react';
+import Reveal from '../components/Reveal';
 import styles from './Contact.module.css';
 
 const offices = [
@@ -123,14 +124,16 @@ export default function Contact() {
               { Icon: Phone, text: '+233 24 000 0001', href: 'tel:+233240000001', label: 'Call Us' },
               { Icon: Mail,  text: 'info@maspejo.com', href: 'mailto:info@maspejo.com', label: 'Email Us' },
               { Icon: Clock, text: 'Mon–Fri: 7AM – 6PM', href: '#', label: 'Office Hours' },
-            ].map(({ Icon, text, href, label }) => (
-              <a key={label} href={href} className={styles.quickItem}>
-                <div className={styles.quickIcon}><Icon size={18} /></div>
-                <div>
-                  <span className={styles.quickLabel}>{label}</span>
-                  <span className={styles.quickText}>{text}</span>
-                </div>
-              </a>
+            ].map(({ Icon, text, href, label }, i) => (
+              <Reveal key={label} animation="fade-up" delay={i * 100} duration={600}>
+                <a href={href} className={styles.quickItem}>
+                  <div className={styles.quickIcon}><Icon size={18} /></div>
+                  <div>
+                    <span className={styles.quickLabel}>{label}</span>
+                    <span className={styles.quickText}>{text}</span>
+                  </div>
+                </a>
+              </Reveal>
             ))}
           </div>
         </div>
@@ -141,6 +144,7 @@ export default function Contact() {
         <div className="container">
           <div className={styles.mainGrid}>
             {/* ─ FORM COLUMN ─ */}
+            <Reveal animation="fade-right" duration={800}>
             <div className={styles.formCol}>
               <span className="section-label">Send Us a Message</span>
               <h2 className={styles.formTitle}>Request a Consultation</h2>
@@ -271,14 +275,17 @@ export default function Contact() {
                 </form>
               )}
             </div>
+            </Reveal>
 
             {/* ─ INFO COLUMN ─ */}
+            <Reveal animation="fade-left" duration={800} delay={150}>
             <div className={styles.infoCol}>
               <span className="section-label">Our Offices</span>
               <h2 className={styles.infoTitle}>Find Us</h2>
 
-              {offices.map(office => (
-                <div key={office.city} className={styles.officeCard}>
+              {offices.map((office, i) => (
+                <Reveal key={office.city} animation="zoom-up" delay={i * 150} duration={700}>
+                <div className={styles.officeCard}>
                   <h3 className={styles.officeCity}>{office.city}</h3>
                   <ul className={styles.officeList}>
                     <li className={styles.officeItem}>
@@ -312,9 +319,11 @@ export default function Contact() {
                     />
                   </div>
                 </div>
+                </Reveal>
               ))}
 
               {/* Social proof */}
+              <Reveal animation="fade-up" delay={300}>
               <div className={styles.proofBox}>
                 <div className={styles.proofStars}>★★★★★</div>
                 <p className={styles.proofText}>
@@ -323,7 +332,9 @@ export default function Contact() {
                 </p>
                 <span className={styles.proofAuthor}>— Kwame Amponsah, CEO, Horizon Properties</span>
               </div>
+              </Reveal>
             </div>
+            </Reveal>
           </div>
         </div>
       </section>

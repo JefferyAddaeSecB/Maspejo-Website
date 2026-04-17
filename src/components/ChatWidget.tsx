@@ -26,12 +26,9 @@ function getOpenAI(): OpenAI {
 
 // ── Suggested starter questions ────────────────────────────────────────────
 const SUGGESTIONS = [
-  'What services does Maspejo offer?',
-  'Tell me about recent projects',
+  'What services do you offer?',
   'How do I get a quote?',
-  'What are your certifications?',
-  'How long does a project take?',
-  'Where are your offices?',
+  'Tell me about recent projects',
 ];
 
 // ── Helpers ────────────────────────────────────────────────────────────────
@@ -81,7 +78,7 @@ export default function ChatWidget() {
       setMessages([{
         id: uid(),
         role: 'assistant',
-        content: "Hello! I'm **Ama**, Maspejo's virtual assistant. 👋\n\nI can help you with information about our construction services, projects, team, and how to get started on your next build.\n\nWhat can I help you with today?",
+        content: "Hi! I'm **Ama**, Maspejo's AI assistant. 👋 Ask me anything about our services, projects, or how to get started.",
         timestamp: new Date(),
       }]);
     }
