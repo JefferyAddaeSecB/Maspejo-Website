@@ -13,11 +13,16 @@ interface Message {
   streaming?: boolean;
 }
 
-// ── OpenAI client (client-side — dev only) ─────────────────────────────────
-const openai = new OpenAI({
-  apiKey: import.meta.env.VITE_OPENAI_API_KEY as string,
-  dangerouslyAllowBrowser: true,
-});
+// ── OpenAI client — lazy singleton so a missing key never crashes the page ──
+let _openai: OpenAI | null = null;
+function getOpenAI(): OpenAI {
+  if (!_openai) {
+    const apiKey = import.meta.env.VITE_OPENAI_API_KEY as string | undefined;
+    if (!apiKey) throw new Error('OPENAI_API_KEY is not configured. Add VITE_OPENAI_API_KEY to your environment variables.');
+    _openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
+  }
+  return _openai;
+}
 
 // ── Suggested starter questions ────────────────────────────────────────────
 const SUGGESTIONS = [
@@ -144,7 +149,7 @@ export default function ChatWidget() {
         content: m.content,
       }));
 
-      const stream = await openai.chat.completions.create({
+      const stream = await getOpenAI().chat.completions.create({
         model: 'gpt-4o',
         messages: [
           { role: 'system', content: MASPEJO_SYSTEM_PROMPT },
